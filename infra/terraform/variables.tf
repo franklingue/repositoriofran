@@ -108,7 +108,12 @@ variable "db_secret_name" {
 variable "allowed_ssh_cidrs" {
   description = "CIDRs permitidos para acceder por SSH al bastion"
   type        = list(string)
-  default     = ["203.0.113.10/32", "198.51.100.22/32"]
+  default     = []
+
+  validation {
+    condition     = var.bastion_enabled == false || length(var.allowed_ssh_cidrs) > 0
+    error_message = "Cuando bastion_enabled es true, debes establecer allowed_ssh_cidrs con una lista no vacía de CIDRs permitidos para acceso SSH."
+  }
 }
 
 variable "bastion_instance_type" {
