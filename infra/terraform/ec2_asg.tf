@@ -22,8 +22,8 @@ resource "aws_launch_template" "app_lt" {
   }
 
   network_interfaces {
-    security_groups = [aws_security_group.ec2_sg.id]
-    subnet_id       = aws_subnet.private[0].id
+    security_groups             = [aws_security_group.ec2_sg.id]
+    associate_public_ip_address = false
   }
 
   user_data = base64encode(file("${path.module}/user_data.sh"))
@@ -57,9 +57,4 @@ resource "aws_autoscaling_group" "app_asg" {
   }
 
   depends_on = [aws_lb_listener.https]
-}
-
-resource "aws_autoscaling_attachment" "asg_tg" {
-  autoscaling_group_name = aws_autoscaling_group.app_asg.name
-  lb_target_group_arn    = aws_lb_target_group.app_tg.arn
 }
