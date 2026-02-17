@@ -8,10 +8,10 @@ resource "aws_secretsmanager_secret" "nuvei" {
 resource "aws_secretsmanager_secret_version" "nuvei_v" {
   secret_id = aws_secretsmanager_secret.nuvei.id
   secret_string = jsonencode({
-    merchantId = "TU_MERCHANT_ID",
-    terminalId = "TU_TERMINAL_ID",
-    secretKey  = "TU_SECRET_KEY",
-    baseUrl    = "https://gateway.nuvei.com/"
+    merchantId = var.nuvei_merchant_id,
+    terminalId = var.nuvei_terminal_id,
+    secretKey  = var.nuvei_secret_key,
+    baseUrl    = var.nuvei_base_url
   })
 }
 
