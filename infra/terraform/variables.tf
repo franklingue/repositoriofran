@@ -104,3 +104,26 @@ variable "db_secret_name" {
   type        = string
   default     = "db/credentials"
 }
+
+variable "allowed_ssh_cidrs" {
+  description = "CIDRs permitidos para acceder por SSH al bastion"
+  type        = list(string)
+  default     = []
+
+  validation {
+    condition     = var.bastion_enabled == false || length(var.allowed_ssh_cidrs) > 0
+    error_message = "Cuando bastion_enabled es true, debes establecer allowed_ssh_cidrs con una lista no vacía de CIDRs permitidos para acceso SSH."
+  }
+}
+
+variable "bastion_instance_type" {
+  description = "Tipo de instancia para el bastion"
+  type        = string
+  default     = "t3.micro"
+}
+
+variable "bastion_enabled" {
+  description = "Habilita el bastion host"
+  type        = bool
+  default     = true
+}

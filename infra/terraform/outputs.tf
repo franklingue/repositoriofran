@@ -17,3 +17,13 @@ output "rds_endpoint" {
   value       = aws_db_instance.mysql.address
   description = "Endpoint de la base de datos MySQL"
 }
+
+output "bastion_public_ip" {
+  value       = try(aws_instance.bastion[0].public_ip, null)
+  description = "IP pública del bastion"
+}
+
+output "bastion_public_dns" {
+  value       = try(aws_instance.bastion[0].public_dns, null)
+  description = "DNS público del bastion"
+}
