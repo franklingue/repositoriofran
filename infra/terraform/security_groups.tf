@@ -59,6 +59,14 @@ resource "aws_security_group" "ec2_sg" {
     security_groups = [aws_security_group.alb_sg.id]
   }
 
+  ingress {
+    description     = "SSH from Bastion SG"
+    from_port       = 22
+    to_port         = 22
+    protocol        = "tcp"
+    security_groups = [aws_security_group.bastion_sg.id]
+  }
+
   egress {
     description = "All outbound"
     from_port   = 0

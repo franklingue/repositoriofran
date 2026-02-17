@@ -104,3 +104,21 @@ variable "db_secret_name" {
   type        = string
   default     = "db/credentials"
 }
+
+variable "allowed_ssh_cidrs" {
+  description = "CIDRs permitidos para acceder por SSH al bastion"
+  type        = list(string)
+  default     = ["203.0.113.10/32", "198.51.100.22/32"]
+}
+
+variable "bastion_instance_type" {
+  description = "Tipo de instancia para el bastion"
+  type        = string
+  default     = "t3.micro"
+}
+
+variable "bastion_enabled" {
+  description = "Habilita el bastion host"
+  type        = bool
+  default     = true
+}
